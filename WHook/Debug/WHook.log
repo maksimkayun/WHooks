@@ -1,0 +1,3 @@
+﻿  dllhook.cpp
+C:\Users\Dushevno\Desktop\GIT\WHook\WHook\dllhook.cpp(75): warning C4715: KeyboardProc: значение возвращается не при всех путях выполнения
+  WHook.vcxproj -> C:\Users\Dushevno\Desktop\GIT\WHook\Debug\WHook.exe

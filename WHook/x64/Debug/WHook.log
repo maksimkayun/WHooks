@@ -1,0 +1,7 @@
+﻿  dllhook.cpp
+C:\Users\Dushevno\Desktop\GIT\WHook\WHook\dllhook.cpp(104,28): error C2664: "BOOL GetUserNameW(LPWSTR,LPDWORD)": невозможно преобразовать аргумент 1 из "char *" в "LPWSTR"
+C:\Users\Dushevno\Desktop\GIT\WHook\WHook\dllhook.cpp(104,15): message : Типы, на которые указывают указатели, не связаны; для преобразования требуется reinterpret_cast, приведение в стиле С или приведение в стиле функции
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\winbase.h(7408,1): message : см. объявление "GetUserNameW"
+  winhook.cpp
+C:\Users\Dushevno\Desktop\GIT\WHook\WHook\winhook.cpp(39,16): warning C4244: return: преобразование "WPARAM" в "int", возможна потеря данных
+  Создание кода...
